@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  worker:
+    build: .
+    command: ["celery", "-A", "myproj", "worker", "-l", "info"]
+  beat:
+    build: .
+    command: ["celery", "-A", "myproj", "beat", "-l", "info"]
